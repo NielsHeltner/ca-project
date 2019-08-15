@@ -71,7 +71,7 @@ workflows:
                 - ready/*
       - build-deploy-staging:
           requires:
-            - test
+            - test-ready-branches
           filters:
             branches:
               only: master
