@@ -18,7 +18,7 @@ def make_github_issue(title, body=None, labels=None):
     # Create an authenticated session to create the issue
     session = requests.Session()
     session.auth = (USERNAME, PASSWORD)
-    # Create our issue
+    # Create our issue 
     issue = {'title': title,
              'body': body,
              'labels': labels}
