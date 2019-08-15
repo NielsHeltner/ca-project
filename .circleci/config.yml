@@ -7,7 +7,9 @@ jobs:
       - checkout
       - run:
           name: Testing step
-          command: python tests.py
+          command: |
+            pip install -r requirements.txt
+            python tests.py
       - persist_to_workspace:
           root: .
           paths:
