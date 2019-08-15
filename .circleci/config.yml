@@ -72,7 +72,7 @@ workflows:
           filters:
             branches:
               only:
-                - /ready\/*/
+                - ready*
       - build-deploy-staging:
           requires:
             - test-ready-branches
