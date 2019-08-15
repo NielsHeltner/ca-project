@@ -11,6 +11,34 @@ jobs:
       - run:
           name: Testing step
           command: python tests.py
+      - store_test_results:
+          path: test-reports
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  test-ready-branches:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+          name: Checkout master and merge with current branch step
+          command: |
+            git log --oneline --graph --decorate --all -5
+            git checkout origin/master
+            git merge ${CIRCLE_BRANCH}
+      - run:
+          name: Installing requirements step
+          command: pip install --user -r requirements.txt
+      - run:
+          name: Testing step
+          command: python tests.py
+      - store_test_results:
+          path: test-reports
+      - run:
+          name: Push to origin master step
+          command: git push origin master
       - persist_to_workspace:
           root: .
           paths:
@@ -47,12 +75,22 @@ jobs:
           command: ssh ubuntu@34.76.103.52 siege http://localhost:80
 workflows:
   version: 2
-  test-build-deploy-staging:
+  test-build-deploy:
     jobs:
-      - test
+      - test-ready-branches:
+          filters:
+            branches:
+              only:
+                - /ready/.*/
       - build-deploy-staging:
           requires:
-            - test
+            - test-ready-branches
+          filters:
+            branches:
+              only: master
       - stress-test-staging:
           requires:
             - build-deploy-staging
+          filters:
+            branches:
+              only: master

@@ -5,8 +5,8 @@
 # Contains _unittests_
 # Is using the base python unittest framework.
 # To add tests add a function on TestCase with signature: test_[name_of_test](self):
-# To run use python tests.py 
-
+# To run use python tests.py
+import xmlrunner
 import os
 import unittest
 from datetime import datetime
@@ -48,4 +48,4 @@ class TestCase(unittest.TestCase):
         self.assertEqual(number_of_posts,1)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output="test-reports"))
