@@ -17,6 +17,28 @@ jobs:
           root: .
           paths:
             - .
+  test-ready-branches:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+          name: Git commands
+          command: |
+            git checkout master
+            git merge ${CIRCLE_BRANCH}
+      - run:
+          name: Installing requirements step
+          command: pip install --user -r requirements.txt
+      - run:
+          name: Testing step
+          command: python tests.py
+      - store_test_results:
+          path: test-reports
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   build-deploy-staging:
     machine: true
     steps:
@@ -42,7 +64,11 @@ workflows:
   version: 2
   test-build-deploy:
     jobs:
-      - test
+      - test-ready-branches:
+          filters:
+            branches:
+              only:
+                - ready/*
       - build-deploy-staging:
           requires:
             - test
