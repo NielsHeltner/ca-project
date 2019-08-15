@@ -23,10 +23,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Checkout master step
+          name: Checkout master and merge with ${CIRCLE_BRANCH} step
           command: |
-            git log --oneline --graph --decorate --all
-            git checkout master
+            git log --oneline --graph --decorate --all -5
+            git checkout origin/master
             git merge ${CIRCLE_BRANCH}
       - run:
           name: Installing requirements step
@@ -36,6 +36,9 @@ jobs:
           command: python tests.py
       - store_test_results:
           path: test-reports
+      - run:
+          name: Push to origin master step
+          command: git push origin master
       - persist_to_workspace:
           root: .
           paths:
@@ -66,6 +69,9 @@ workflows:
   test-build-deploy:
     jobs:
       - test-ready-branches
+          filters:
+            branches:
+              only: ready*
       - build-deploy-staging:
           requires:
             - test-ready-branches
