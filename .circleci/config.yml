@@ -46,7 +46,7 @@ workflows:
     jobs:
       - test
       - pylint/lint:
-          working-directory: .
+          working-directory: /home/project
           attach-workspace: true
       - build-deploy-staging:
           requires:
