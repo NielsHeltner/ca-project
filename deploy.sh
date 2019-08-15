@@ -1,6 +1,6 @@
 #!/bin/bash
 user="ubuntu"
-targetfolder="/home/ca-project/"
+targetfolder="/home/"
 declare -A ips=( ["local"]="104.155.53.172" ["staging"]="34.76.103.52" ["prod"]="34.76.115.57")
 if [ "$1" != "" ] && [ "${ips["$1"]}" != "" ]
 then
