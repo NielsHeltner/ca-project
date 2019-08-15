@@ -68,6 +68,31 @@ jobs:
           root: .
           paths:
             - .
+  build-deploy-prod:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build Docker prod image step
+          command: docker build -t $DOCKER_USER/ca-project:prod .
+      - run:
+          name: Push Docker prod image step
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push $DOCKER_USER/ca-project:prod
+      - add_ssh_keys:
+          fingerprints:
+            - "76:b8:d8:04:1a:0d:65:ba:e7:c9:cc:3c:27:e0:9a:99"
+      - run:
+          name: Deploy to prod step
+          command: |
+            chmod +x deploy.sh
+            chmod +x ips.sh
+            ./deploy.sh prod
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   stress-test-staging:
     machine: true
     steps:
@@ -95,6 +120,12 @@ workflows:
       - stress-test-staging:
           requires:
             - build-deploy-staging
+          filters:
+            branches:
+              only: master
+      - build-deploy-prod:
+          requires:
+            - stress-test-staging
           filters:
             branches:
               only: master
