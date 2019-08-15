@@ -1,22 +1,5 @@
 version: 2.0
 jobs:
-  test:
-    docker:
-      - image: circleci/python:3.7
-    steps:
-      - checkout
-      - run:
-          name: Installing requirements step
-          command: pip install --user -r requirements.txt
-      - run:
-          name: Testing step
-          command: python tests.py
-      - store_test_results:
-          path: test-reports
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
   test-ready-branches:
     docker:
       - image: circleci/python:3.7
@@ -25,7 +8,6 @@ jobs:
       - run:
           name: Checkout master and merge with current branch step
           command: |
-            git log --oneline --graph --decorate --all -5
             git checkout origin/master
             git merge ${CIRCLE_BRANCH}
       - run:
@@ -38,7 +20,7 @@ jobs:
           path: test-reports
       - run:
           name: Push to origin master step
-          command: git push origin master
+          command: git push origin origin/master
       - persist_to_workspace:
           root: .
           paths:
@@ -68,10 +50,22 @@ jobs:
           root: .
           paths:
             - .
+  stress-test-staging:
+    machine: true
+    steps:
+      - attach_workspace:
+          at: .
+      - add_ssh_keys:
+          fingerprints:
+            - "76:b8:d8:04:1a:0d:65:ba:e7:c9:cc:3c:27:e0:9a:99"
+      - run:
+          name: Stress test staging step
+          command: ssh ubuntu@`./ips.sh staging` siege http://localhost:80
   build-deploy-prod:
     machine: true
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Build Docker prod image step
           command: docker build -t $DOCKER_USER/ca-project:prod .
@@ -89,21 +83,6 @@ jobs:
             chmod +x deploy.sh
             chmod +x ips.sh
             ./deploy.sh prod
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  stress-test-staging:
-    machine: true
-    steps:
-      - attach_workspace:
-          at: .
-      - add_ssh_keys:
-          fingerprints:
-            - "76:b8:d8:04:1a:0d:65:ba:e7:c9:cc:3c:27:e0:9a:99"
-      - run:
-          name: Run stress test on staging
-          command: ssh ubuntu@`./ips.sh staging` siege http://localhost:80
 workflows:
   version: 2
   test-build-deploy:

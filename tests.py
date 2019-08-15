@@ -5,7 +5,7 @@
 # Contains _unittests_
 # Is using the base python unittest framework.
 # To add tests add a function on TestCase with signature: test_[name_of_test](self):
-# To run use python tests.py 
+# To run use python tests.py
 import xmlrunner
 import os
 import unittest
@@ -31,7 +31,7 @@ class TestCase(unittest.TestCase):
 
     # We gotta boost that test count
     def test_silly(self):
-        assert True
+        assert False
 
     # Test that our testdatabase does not come with any posts
     def test_no_predefined_posts(self):
