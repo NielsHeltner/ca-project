@@ -96,7 +96,7 @@ jobs:
           command: ls
       - run:
           name: Zip project folder
-          command: zip artifact.zip project
+          command: zip -r artifact.zip project
       - store-artifacts:
           path: ./artifact.zip
           destination: artifact-file
