@@ -20,7 +20,7 @@ jobs:
           path: test-reports
       - run:
           name: Push to origin master step
-          command: git push origin origin/master
+          command: git push origin master
       - persist_to_workspace:
           root: .
           paths:
