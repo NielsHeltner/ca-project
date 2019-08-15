@@ -3,7 +3,7 @@ user="ubuntu"
 targetfolder="/home/ubuntu"
 if [ "$1" != "" ]
 then
-    ip="$1"
+    ip=`./ips.sh "$1"`
     scp docker-compose.yml $user@$ip:$targetfolder
     ssh $user@$ip "
         export TAG="$1"

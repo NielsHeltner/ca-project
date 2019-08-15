@@ -63,7 +63,7 @@ jobs:
           command: |
             chmod +x deploy.sh
             chmod +x ips.sh
-            ./deploy.sh `./ips.sh staging`
+            ./deploy.sh staging
   stress-test-staging:
     machine: true
     steps:
