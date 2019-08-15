@@ -43,4 +43,3 @@ def post():
     return render_template('post.html',
                         title='Share your wisdom!',
                         form=form)
-
