@@ -54,7 +54,7 @@ workflows:
             - test
       - build-deploy-staging:
           requires:
-            - pylint
+            - test
           filters:
             branches:
               only: master
