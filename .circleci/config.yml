@@ -6,10 +6,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Installing requirements step
+          command: pip install --user -r requirements.txt
+      - run:
           name: Testing step
-          command: |
-            pip install --user -r requirements.txt
-            python tests.py
+          command: python tests.py
       - persist_to_workspace:
           root: .
           paths:
@@ -20,23 +21,21 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Build Docker and push to staging step
+          name: Build Docker staging image step
+          command: docker build -t $DOCKER_USER/ca-project:staging .
+      - run:
+          name: Push Docker staging image step
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker build -t $DOCKER_USER/ca-project:staging .
             docker push $DOCKER_USER/ca-project:staging
       - add_ssh_keys:
           fingerprints:
             - "76:b8:d8:04:1a:0d:65:ba:e7:c9:cc:3c:27:e0:9a:99"
       - run:
-          name: Change permissions for deploy.sh
-          command: chmod +x deploy.sh
-      - run:
-          name: List files
-          command: ls -l
-      - run:
           name: Deploy to staging step
-          command: ./deploy.sh staging
+          command: |
+            chmod +x deploy.sh
+            ./deploy.sh staging
 workflows:
   version: 2
   test-build-deploy-staging:
