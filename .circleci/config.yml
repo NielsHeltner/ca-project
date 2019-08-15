@@ -89,14 +89,8 @@ jobs:
           name: Install zip tool
           command: sudo apt install zip -y
       - run:
-          name: Change directory to parent
-          command: cd ..
-      - run:
-          name: List directory
-          command: ls
-      - run:
           name: Zip project folder
-          command: zip -r artifact.zip project
+          command: cd .. && zip -r artifact.zip project
       - store-artifacts:
           path: ./artifact.zip
           destination: artifact-file
