@@ -6,7 +6,8 @@ if [ "$1" != "" ] && [ "${ips["$1"]}" != "" ]
 then
     ip="${ips["$1"]}"
     scp docker-compose.yml $user@$ip:$targetfolder
-    ssh $user@$ip ""
+    ssh $user@$ip "
+        pwd
         cd $targetfolder
         docker-compose up
     "
