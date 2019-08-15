@@ -5,13 +5,8 @@
 # Contains _unittests_
 # Is using the base python unittest framework.
 # To add tests add a function on TestCase with signature: test_[name_of_test](self):
-<<<<<<< HEAD
 # To run use python tests.py
 import xmlrunner
-=======
-# To run use python tests.py 
-
->>>>>>> master
 import os
 import unittest
 from datetime import datetime
