@@ -38,10 +38,10 @@ jobs:
             ./deploy.sh staging
     stress-test-staging:
       machine: true
-        steps:
-          - run:
-              name: Run stress test
-              commmand: ssh ubuntu@34.76.103.52 siege http://localhost:80
+      steps:
+        - run:
+            name: Run stress test
+            commmand: ssh ubuntu@34.76.103.52 siege http://localhost:80
 workflows:
   version: 2
   test-build-deploy-staging:
