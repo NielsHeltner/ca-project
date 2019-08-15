@@ -23,7 +23,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Checkout master and merge with ${CIRCLE_BRANCH} step
+          name: Checkout master and merge with current branch step
           command: |
             git log --oneline --graph --decorate --all -5
             git checkout origin/master
@@ -72,7 +72,7 @@ workflows:
           filters:
             branches:
               only:
-                - ready*
+                - /ready.*/
       - build-deploy-staging:
           requires:
             - test-ready-branches
