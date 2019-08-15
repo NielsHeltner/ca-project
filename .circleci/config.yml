@@ -46,10 +46,10 @@ workflows:
     jobs:
       - test
       - pylint/lint:
-          working-directory: /home/
+          working-directory: .
           attach-workspace: true
           pyversion: '3.7'
-          checkout: true
+          checkout: false
       - build-deploy-staging:
           requires:
             - test
