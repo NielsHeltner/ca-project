@@ -63,7 +63,7 @@ jobs:
           command: |
             chmod +x deploy.sh
             chmod +x ips.sh
-            ./ips.sh staging | ./deploy.sh
+            ./deploy.sh `./ips.sh staging`
   stress-test-staging:
     machine: true
     steps:
@@ -72,9 +72,7 @@ jobs:
             - "76:b8:d8:04:1a:0d:65:ba:e7:c9:cc:3c:27:e0:9a:99"
       - run:
           name: Run stress test on staging
-          command: |
-            ip=./ips.sh
-            ssh ubuntu@$ip siege http://localhost:80
+          command: ssh ubuntu@$`ips.sh staging` siege http://localhost:80
 workflows:
   version: 2
   test-build-deploy:
