@@ -47,7 +47,7 @@ workflows:
       - test
       - pylint/lint:
           working-directory: .
-          attach-workspace: true
+          attach-workspace: false
           pyversion: '3.7'
           checkout: false
           requires:
