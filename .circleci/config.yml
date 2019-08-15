@@ -30,7 +30,7 @@ jobs:
             - "76:b8:d8:04:1a:0d:65:ba:e7:c9:cc:3c:27:e0:9a:99"
       - run:
           name: List files
-          command: ll
+          command: ls -l
       - run:
           name: Deploy to staging step
           command: ./deploy.sh staging
