@@ -96,6 +96,9 @@ jobs:
           name: Change directory to parent
           command: cd ..
       - run:
+          name: List directory
+          command: ls
+      - run:
           name: Zip project folder
           command: zip artifact.zip project
       - store-artifacts:
