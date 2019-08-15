@@ -38,9 +38,12 @@ jobs:
             ./deploy.sh staging
 workflows:
   version: 2
-  test-build-deploy-staging:
+  test-build-deploy:
     jobs:
       - test
       - build-deploy-staging:
           requires:
             - test
+          filters:
+            branches:
+              only: master
