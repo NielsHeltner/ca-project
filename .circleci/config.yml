@@ -1,0 +1,21 @@
+version: 2.0
+jobs:
+  test:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+          name: Testing step
+          command: |
+            pip install --user -r requirements.txt 
+            python tests.py
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
