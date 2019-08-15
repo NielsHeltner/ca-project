@@ -21,10 +21,6 @@ jobs:
       - run:
           name: Push to origin master step
           command: git push origin master
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
   build-deploy-staging:
     machine: true
     steps:
@@ -88,7 +84,7 @@ jobs:
     machine: true
     steps:
       - attach_workspace:
-          at: .
+          at: project/
       - run:
           name: Install zip tool
           command: sudo apt install zip -y
