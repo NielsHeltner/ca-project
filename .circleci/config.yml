@@ -23,8 +23,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Git commands
+          name: Checkout master step
           command: |
+            git log --oneline --graph --decorate --all
             git checkout master
             git merge ${CIRCLE_BRANCH}
       - run:
