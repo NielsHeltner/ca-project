@@ -7,7 +7,7 @@ then
     ip="${ips["$1"]}"
     scp docker-compose.yml $user@$ip:$targetfolder
     ssh $user@$ip "
-        pwd
+        export TAG="$1"
         cd $targetfolder
         docker-compose up -d
     "
