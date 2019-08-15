@@ -68,7 +68,7 @@ workflows:
   version: 2
   test-build-deploy:
     jobs:
-      - test-ready-branches
+      - test-ready-branches:
           filters:
             branches:
               only: ready*
