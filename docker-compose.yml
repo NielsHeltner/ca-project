@@ -1,6 +1,6 @@
 version: '3'
 services:
   flask:
-    image: nielsniels/ca-project
+    image: nielsniels/ca-project:${TAG}
     ports:
       - 80:5000

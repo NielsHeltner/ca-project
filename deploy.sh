@@ -9,7 +9,7 @@ then
     ssh $user@$ip "
         pwd
         cd $targetfolder
-        docker-compose up
+        docker-compose up -d
     "
 else
     keys=""
