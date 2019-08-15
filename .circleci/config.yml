@@ -50,9 +50,11 @@ workflows:
           attach-workspace: true
           pyversion: '3.7'
           checkout: false
-      - build-deploy-staging:
           requires:
             - test
+      - build-deploy-staging:
+          requires:
+            - pylint
           filters:
             branches:
               only: master
