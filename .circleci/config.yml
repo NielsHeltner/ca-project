@@ -83,6 +83,25 @@ jobs:
             chmod +x deploy.sh
             chmod +x ips.sh
             ./deploy.sh prod
+
+  package-artifacts:
+    machine: true
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install zip tool
+          command: apt install zip -y
+      - run:
+          name: Change directory to parent
+          command: cd ..
+      - run:
+          name: Zip project folder
+          command: zip artifact.zip project
+      - store-artifacts:
+          path: ./artifact.zip
+          destination: artifact-file
+
 workflows:
   version: 2
   test-build-deploy:
@@ -103,6 +122,12 @@ workflows:
             branches:
               only: master
       - build-deploy-prod:
+          requires:
+            - stress-test-staging
+          filters:
+            branches:
+              only: master
+      - package-artifacts:
           requires:
             - stress-test-staging
           filters:
