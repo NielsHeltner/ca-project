@@ -14,8 +14,35 @@ jobs:
           root: .
           paths:
             - .
+  build-staging:
+    machine: true
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Build Docker and push staging step
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker build -t $DOCKER_USER/ca-project:staging .
+            docker push $DOCKER_USER/ca-project:staging
+  deploy-staging:
+    docker:
+      - image: alpine
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "76:b8:d8:04:1a:0d:65:ba:e7:c9:cc:3c:27:e0:9a:99"
+      - run:
+          name: Deploy to staging step
+          command: deploy.sh staging
 workflows:
   version: 2
-  test:
+  test-build-deploy-staging:
     jobs:
       - test
+      - build-staging:
+          requires:
+            - test
+      - deploy-staging:
+          requires:
+            - build-staging
