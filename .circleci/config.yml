@@ -8,7 +8,7 @@ jobs:
       - run:
           name: Testing step
           command: |
-            pip install --user -r requirements.txt 
+            pip install --user -r requirements.txt
             python tests.py
       - persist_to_workspace:
           root: .
@@ -28,6 +28,9 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "76:b8:d8:04:1a:0d:65:ba:e7:c9:cc:3c:27:e0:9a:99"
+      - run:
+          name: List files
+          command: ll
       - run:
           name: Deploy to staging step
           command: ./deploy.sh staging
