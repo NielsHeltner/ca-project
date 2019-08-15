@@ -86,8 +86,6 @@ workflows:
               only:
                 - /ready/.*/
       - build-deploy-staging:
-          requires:
-            - test-ready-branches
           filters:
             branches:
               only: master
