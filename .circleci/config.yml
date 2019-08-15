@@ -45,7 +45,9 @@ workflows:
   test-build-deploy:
     jobs:
       - test
-      - pylint/lint
+      - pylint/lint:
+          parameters:
+            working-directory: /app
       - build-deploy-staging:
           requires:
             - test
