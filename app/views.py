@@ -8,7 +8,7 @@ from datetime import datetime
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     form = PostForm()
-
+    print("CHECK")
     user = {'nickname': 'Sofus'}
     if form.validate_on_submit():
         post = Post(user_name=form.user_name.data, timestamp=datetime.utcnow(),title=form.title.data, body=form.body.data)
