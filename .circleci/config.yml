@@ -1,0 +1,19 @@
+version: 2.0
+jobs:
+  test:
+    docker:
+      - image: python:3.7-alpine
+    steps:
+      - checkout
+      - run:
+          name: Testing step
+          command: python tests.py
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
