@@ -29,6 +29,9 @@ jobs:
           fingerprints:
             - "76:b8:d8:04:1a:0d:65:ba:e7:c9:cc:3c:27:e0:9a:99"
       - run:
+          name: Change permissions for deploy.sh
+          command: chmod +x deploy.sh
+      - run:
           name: List files
           command: ls -l
       - run:
