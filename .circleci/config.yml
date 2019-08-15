@@ -25,6 +25,10 @@ jobs:
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker build -t $DOCKER_USER/ca-project:staging .
             docker push $DOCKER_USER/ca-project:staging
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   deploy-staging:
     docker:
       - image: alpine
