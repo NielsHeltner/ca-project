@@ -46,8 +46,7 @@ jobs:
   build-deploy-staging:
     machine: true
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
       - run:
           name: Build Docker staging image step
           command: docker build -t $DOCKER_USER/ca-project:staging .
