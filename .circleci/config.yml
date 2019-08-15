@@ -91,7 +91,7 @@ jobs:
           at: .
       - run:
           name: Install zip tool
-          command: apt install zip -y
+          command: sudo apt install zip -y
       - run:
           name: Change directory to parent
           command: cd ..
