@@ -43,8 +43,8 @@ jobs:
           fingerprints:
             - "76:b8:d8:04:1a:0d:65:ba:e7:c9:cc:3c:27:e0:9a:99"
       - run:
-          name: Run stress test
-          commmand: ssh ubuntu@34.76.103.52 siege http://localhost:80
+          name: Run stress test on staging
+          command: ls
 workflows:
   version: 2
   test-build-deploy-staging:
