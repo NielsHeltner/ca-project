@@ -49,7 +49,7 @@ workflows:
           working-directory: /home/
           attach-workspace: true
           pyversion: '3.7'
-          checkout: false
+          checkout: true
       - build-deploy-staging:
           requires:
             - test
