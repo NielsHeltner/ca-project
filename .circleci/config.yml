@@ -48,7 +48,7 @@ workflows:
       - pylint/lint:
           working-directory: /home/
           attach-workspace: true
-          pyversion: 3.7
+          pyversion: '3.7'
           checkout: false
       - build-deploy-staging:
           requires:
