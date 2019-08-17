@@ -6,6 +6,7 @@
 # Is using the base python unittest framework.
 # To add tests add a function on TestCase with signature: test_[name_of_test](self):
 # To run use python tests.py 
+# another new comment
 import xmlrunner
 import os
 import unittest
